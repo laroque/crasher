@@ -1,4 +1,4 @@
-from debian:8
+from debian:9
 
 RUN apt-get update && apt-get install -y \
     build-essential \
