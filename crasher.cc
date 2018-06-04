@@ -16,7 +16,7 @@ void print_count()
 
 void crash( int delay )
 {
-    std::cout << "crashing" << std::endl;
+    std::cout << "crashing in " << delay << "seconds" << std::endl;
     std::this_thread::sleep_for( std::chrono::seconds( delay ) );
     bool* nothing;
     delete nothing;
