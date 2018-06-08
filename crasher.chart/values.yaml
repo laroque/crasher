@@ -13,6 +13,7 @@ args:
   waitTime: 60
 
 crasherName: crasher
+crasherCMName: crasher-configmap
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

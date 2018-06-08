@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: demochart-configmap
+    name: {{ .Values.crasherCMName }}
 data:
     conf-file.yaml: |
       name: "Hello World"
