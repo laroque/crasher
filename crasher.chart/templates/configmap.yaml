@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: demochart-configmap
+data:
+    conf-file.yaml: |
+      name: "Hello World"
+      other-thing: foo
+      some-things:
+        - thing1
+        - thing2
