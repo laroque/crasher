@@ -1,8 +1,10 @@
-from debian:9
+from debian:9 as deb-base
 
 RUN apt-get update && apt-get install -y \
     build-essential \
     gdb
+
+from deb-base
 
 COPY crasher.cc /usr/local/src/crasher.cc
 
