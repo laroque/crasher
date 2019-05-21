@@ -1,6 +1,6 @@
+language: cpp
 
-language: C++
-dist: trusty
+dist: xenial
 
 branches:
   only:
