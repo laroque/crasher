@@ -1,0 +1,8 @@
+dist: trusty
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+        - docker build -t travis-ci-build-test .
+        - docker images
