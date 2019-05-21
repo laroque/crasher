@@ -11,5 +11,6 @@ jobs:
   include:
     - stage: build docker image
       script:
-        - docker build -t travis-ci-build-test .
-        - docker images
+        - docker build -t laroque/crasher:latest-travis .
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push laroque/crasher:latest-travis
