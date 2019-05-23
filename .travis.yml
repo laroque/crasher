@@ -12,8 +12,8 @@ jobs:
     - stage: build docker image
       script:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build -t --build-arg platform=armhf laroque/crasher:latest-travis-armhf .
-        - docker build -t --build-arg platform=amd64 laroque/crasher:latest-travis-amd64 .
+        - docker build --build-arg platform=armhf -t laroque/crasher:latest-travis-armhf .
+        - docker build --build-arg platform=amd64 -t laroque/crasher:latest-travis-amd64 .
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push laroque/crasher:latest-travis-armhf
         - docker push laroque/crasher:latest-travis-amd64
