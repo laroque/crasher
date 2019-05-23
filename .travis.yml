@@ -10,6 +10,9 @@ addons:
     packages:
       - docker-ce
 
+env:
+  - DOCKER_CLI_EXPERIMENTAL=enabled
+
 branches:
   only:
     - master
