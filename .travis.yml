@@ -17,7 +17,7 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push laroque/crasher:latest-travis-armhf
         - docker push laroque/crasher:latest-travis-amd64
-        - docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-armhf laroque/crasher:latest-travis-amd64
-        - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-armhf --arch armhf
-        - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-amd64 --arch amd64
-        - docker manifest push laroque/crasher:latest-travis
+        #- docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-armhf laroque/crasher:latest-travis-amd64
+        #- docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-armhf --arch armhf
+        #- docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-amd64 --arch amd64
+        #- docker manifest push laroque/crasher:latest-travis
