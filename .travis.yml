@@ -12,8 +12,12 @@ jobs:
     - stage: build docker image
       script:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build -t laroque/crasher:latest-travis .
-        - docker run --rm -t multiarch/debian-debootstrap:armhf-stretch uname -a
-        - docker run --rm -t multiarch/debian-debootstrap:amd64-stretch uname -a
+        - docker build -t --build-arg platform=armhf laroque/crasher:latest-travis-armhf .
+        - docker build -t --build-arg platform=amd64 laroque/crasher:latest-travis-amd64 .
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push laroque/crasher:latest-travis
+        - docker push laroque/crasher:latest-travis-armhf
+        - docker push laroque/crasher:latest-travis-amd64
+        - docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-armhf laroque/crasher:latest-travis-amd64
+        - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-armhf --arch armhf
+        - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-amd64 --arch amd64
+        - docker manifest push laroque/crasher:latest-travis
