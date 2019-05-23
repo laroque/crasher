@@ -14,6 +14,6 @@ jobs:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
         - docker build -t laroque/crasher:latest-travis .
         - docker run --rm -t multiarch/debian-debootstrap:armhf-stretch uname -a
-        - docker run --rm -t multiarch/debian-debootstrap:x86_64-stretch uname -a
+        - docker run --rm -t multiarch/debian-debootstrap:amd64-stretch uname -a
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push laroque/crasher:latest-travis
