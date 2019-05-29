@@ -33,6 +33,7 @@ jobs:
         #- docker build --build-arg platform=amd64 -t laroque/crasher:latest-travis-amd64 .
         - docker build --platform amd64 -t laroque/crasher:latest-travis-amd64 .
     - stage: publish docker artifacts
+      script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push laroque/crasher:latest-travis-arm
         - docker push laroque/crasher:latest-travis-amd64
