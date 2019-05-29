@@ -20,13 +20,19 @@ branches:
 
 jobs:
   include:
+    - stage: environment setup
+      script:
+        - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
+        - sudo service docker restart
+        - docker --version
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
     - stage: build docker image
       script:
-        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
         #- docker build --build-arg platform=armhf -t laroque/crasher:latest-travis-arm .
         - docker build --platform arm -t laroque/crasher:latest-travis-arm .
         #- docker build --build-arg platform=amd64 -t laroque/crasher:latest-travis-amd64 .
         - docker build --platform amd64 -t laroque/crasher:latest-travis-amd64 .
+    - stage: publish docker artifacts
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push laroque/crasher:latest-travis-arm
         - docker push laroque/crasher:latest-travis-amd64
