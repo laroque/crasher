@@ -1,4 +1,4 @@
-#ARG platform=amd64
+ARG platform=amd64
 
 #from debian:9 as deb-base
 from multiarch/debian-debootstrap:${platform}-stretch as deb-base
