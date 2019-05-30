@@ -1,7 +1,7 @@
 #ARG platform=amd64
 
-from debian:9 as deb-base
-#from multiarch/debian-debootstrap:${platform}-stretch as deb-base
+#from debian:9 as deb-base
+from multiarch/debian-debootstrap:${platform}-stretch as deb-base
 
 RUN apt-get update && apt-get install -y \
     build-essential \
