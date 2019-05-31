@@ -32,11 +32,11 @@ jobs:
 #        - docker build --platform arm --build-arg platform=armhf -t laroque/crasher:latest-travis-arm .
         - docker build --platform arm -t laroque/crasher:latest-travis-arm .
 #        - docker build --platform amd64 --build-arg platform=amd64 -t laroque/crasher:latest-travis-amd64 .
-        - docker build --platform amd64 -t laroque/crasher:latest-travis-amd64 .
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push laroque/crasher:latest-travis-arm
-        - docker push laroque/crasher:latest-travis-amd64
-        - docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-arm laroque/crasher:latest-travis-amd64
-        - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-arm --arch arm
-        - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-amd64 --arch amd64
-        - docker manifest push laroque/crasher:latest-travis
+#        - docker build --platform amd64 -t laroque/crasher:latest-travis-amd64 .
+#        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#        - docker push laroque/crasher:latest-travis-arm
+#        - docker push laroque/crasher:latest-travis-amd64
+#        - docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-arm laroque/crasher:latest-travis-amd64
+#        - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-arm --arch arm
+#        - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-amd64 --arch amd64
+#        - docker manifest push laroque/crasher:latest-travis
