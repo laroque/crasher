@@ -2,7 +2,7 @@ ARG platform=amd64
 
 #from debian:9 as deb-base
 from arm32v7/debian:9
-COPY qemu-arm-static /usr/bin
+COPY qemu-arm-static /usr/bin/qemu-arm-static
 #from multiarch/debian-debootstrap:${platform}-stretch as deb-base
 
 RUN apt-get update && apt-get install -y \
