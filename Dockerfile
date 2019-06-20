@@ -1,15 +1,15 @@
 ARG platform=amd64
 
 #from debian:9 as deb-base
-from arm32v7/debian:9 as deb-base
-#COPY qemu-arm-static /usr/bin
+from arm32v7/debian:9
+COPY qemu-arm-static /usr/bin
 #from multiarch/debian-debootstrap:${platform}-stretch as deb-base
 
 RUN apt-get update && apt-get install -y \
     build-essential \
     gdb
 
-from deb-base
+#from deb-base
 
 COPY crasher.cc /usr/local/src/crasher.cc
 
