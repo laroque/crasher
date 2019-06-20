@@ -25,7 +25,7 @@ jobs:
         - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
         - sudo service docker restart
         - docker --version
-        #- docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
         - sudo apt-get install qemu-user qemu-user-static
         - file /usr/bin/qemu-arm-static
         - cp /usr/bin/qemu-arm-static .
