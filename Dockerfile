@@ -8,6 +8,8 @@ from ${platform}/debian:9
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
 
+RUN /usr/bin/qemu-arm-static uname -a
+
 RUN file /usr/bin/qemu-arm-static
 
 RUN apt-get update && apt-get install -y \
