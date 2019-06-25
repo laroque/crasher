@@ -7,7 +7,7 @@ ARG platform=amd64
 from ${platform}/debian:9
 
 COPY qemu-arm-static /usr/bin/qemu-arm-static
-RUN ["/usr/bin/qemu-arm-static", "uname -a"]
+RUN ["/usr/bin/qemu-arm-static", "/usr/bin/uname -a"]
 RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "uname -a"]
 
 RUN file /usr/bin/qemu-arm-static
