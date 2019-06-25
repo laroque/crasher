@@ -6,7 +6,8 @@ ARG platform=amd64
 #from multiarch/debian-debootstrap:${platform}-stretch as deb-base
 from ${platform}/debian:9
 
-COPY qemu-arm-static /usr/bin/qemu-arm-static
+COPY ./qemu-arm-static /usr/bin/qemu-arm-static
+RUN ["/usr/bin/uname", "-a"]
 RUN ["/usr/bin/qemu-arm-static", "/usr/bin/uname", "-a"]
 RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "uname -a"]
 

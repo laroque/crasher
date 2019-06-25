@@ -26,7 +26,7 @@ jobs:
         - sudo service docker restart
         - docker --version
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - sudo apt-get install qemu-user qemu-user-static
+        - sudo apt-get install qemu-user-static
         - file /usr/bin/qemu-arm-static
         - ls -l /usr/bin/qemu-arm-static
         - cp /usr/bin/qemu-arm-static .
@@ -37,7 +37,7 @@ jobs:
         ##- docker build --platform arm -t laroque/crasher:latest-travis-arm .
         #### this next line worked until I added the qemu interpreter step
         #- docker build --platform amd64 --build-arg platform=amd64 -t laroque/crasher:latest-travis-amd64 .
-        - docker build --platform arm --build-arg platform=arm32v7 -t laroque/crasher:latest-travis-arm .
+        - docker build --build-arg platform=arm32v7 -t laroque/crasher:latest-travis-arm .
         ##- docker build --platform amd64 -t laroque/crasher:latest-travis-amd64 .
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         #- docker push laroque/crasher:latest-travis-arm
