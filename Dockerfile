@@ -1,9 +1,11 @@
 ARG platform=amd64
+#or platform=arm32v7
 
 #from debian:9 as deb-base
-from arm32v7/debian:9
+#from arm32v7/debian:9
 #COPY qemu-arm-static /usr/bin/qemu-arm-static
 #from multiarch/debian-debootstrap:${platform}-stretch as deb-base
+from ${platform}/debian:9
 
 RUN apt-get update && apt-get install -y \
     build-essential \
