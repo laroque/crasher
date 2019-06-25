@@ -29,6 +29,7 @@ jobs:
         - sudo apt-get install qemu-user qemu-user-static
         - file /usr/bin/qemu-arm-static
         - cp /usr/bin/qemu-arm-static .
+        - ls -l qemu-arm-static
         #- docker build --platform arm --build-arg platform=armhf -t laroque/crasher:latest-travis-arm .
         - uname -a
         #- docker build --platform arm -t laroque/crasher:latest-travis-arm .
