@@ -7,15 +7,13 @@ ARG platform=amd64
 from ${platform}/debian:9
 
 COPY ./qemu-arm-static /usr/bin/qemu-arm-static
-RUN ["/bin/uname", "-a"]
-RUN ["/usr/bin/qemu-arm-static", "/bin/uname", "-a"]
-RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "uname -a"]
+#RUN ["/bin/uname", "-a"]
+#RUN ["/usr/bin/qemu-arm-static", "/bin/uname", "-a"l]
+#RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "uname -a"]
 
-RUN file /usr/bin/qemu-arm-static
+#RUN file /usr/bin/qemu-arm-static
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    gdb
+RUN ["/usr/bin/qemu", "/bin/sh", "-c", "apt-get update && apt-get install -y build-essential gdb"]
 
 #from deb-base
 
