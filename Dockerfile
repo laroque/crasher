@@ -13,12 +13,12 @@ COPY ./qemu-arm-static /usr/bin/qemu-arm-static
 
 #RUN file /usr/bin/qemu-arm-static
 
-RUN ["/usr/bin/qemu", "/bin/sh", "-c", "apt-get update && apt-get install -y build-essential gdb"]
+RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "apt-get update && apt-get install -y build-essential gdb"]
 
 #from deb-base
 
 COPY crasher.cc /usr/local/src/crasher.cc
 
-RUN g++ -std=c++11 -lpthread -o /usr/local/bin/example_crasher /usr/local/src/crasher.cc
+RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "g++ -std=c++11 -lpthread -o /usr/local/bin/example_crasher /usr/local/src/crasher.cc"]
 
 CMD ["gdb", "--return-child-result", "-ex", "run", "-ex", "bt", "-ex", "quit", "--batch", "--args", "/usr/local/bin/example_crasher", "13"]
