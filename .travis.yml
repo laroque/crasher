@@ -29,17 +29,17 @@ jobs:
         - sudo apt-get install qemu-user-static
         - file /usr/bin/qemu-arm-static
         - ls -l /usr/bin/qemu-arm-static
-        - cp /usr/bin/qemu-arm-static .
         - ls -l qemu-arm-static
         - chmod +x qemu-arm-static
         ##### actually build things
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        ##### arm
-        - docker build --build-arg platform=arm32v7 -t laroque/crasher:latest-travis-arm .
-        - docker push laroque/crasher:latest-travis-arm
         ##### amd64
         - docker build --build-arg platform=amd64 -t laroque/crasher:latest-travis-amd64 .
         - docker push laroque/crasher:latest-travis-amd64
+        ##### arm
+        - cp /usr/bin/qemu-arm-static .
+        - docker build --build-arg platform=arm32v7 -t laroque/crasher:latest-travis-arm .
+        - docker push laroque/crasher:latest-travis-arm
         ##### manifest
         - docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-arm laroque/crasher:latest-travis-amd64
         - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-arm --arch arm
