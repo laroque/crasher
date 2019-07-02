@@ -21,6 +21,7 @@ branches:
 jobs:
   include:
     - stage: environment setup
+      before_install: .travis/setup_emulation.sh
       script:
         - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
         - sudo service docker restart
