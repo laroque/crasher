@@ -51,6 +51,7 @@ echo "should build $IMAGE_USER/$IMAGE_REPO:$IMAGE_TAG"
 dot_travis_path=`dirname $0`
 dot_travis_path=`readlink -e $dot_travis_path`
 
+echo "
 docker build \
     --build-arg IMAGE_USER=$IMAGE_USER \
     --build-arg IMAGE_REPO=$IMAGE_REPO \
@@ -58,3 +59,4 @@ docker build \
     -t emulation_base:local \
     -f $dot_travis_path/Dockerfile.shim \
     $dot_travis_path
+"
