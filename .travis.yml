@@ -25,7 +25,7 @@ jobs:
     - stage: environment setup
       before_install: .travis/setup_emulation.sh
       script:
-        - chmod +x qemu-arm-static
+        #- chmod +x qemu-arm-static
         ##### actually build things
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         ##### amd64
