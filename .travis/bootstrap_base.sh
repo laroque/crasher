@@ -46,3 +46,12 @@ if [[ -z $IMAGE_USER || -z $IMAGE_REPO || -z $IMAGE_TAG ]]; then
 fi
 
 echo "should build $IMAGE_USER/$IMAGE_REPO:$IMAGE_TAG"
+
+dot_travis_path=`dirname $0`
+dot_travis_path=`readlink -e $dot_travis_path`
+
+docker --build-arg IMAGE_USER=$IMAGE_USER \
+       --build-arg IMAGE_REPO=$IMAGE_REPO \
+       --build-arg IMAGE_TAG=$IMAGE_TAG \
+       -t emulation_base:local
+       $dot_travis_path
