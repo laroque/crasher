@@ -9,6 +9,7 @@ addons:
   apt:
     packages:
       - docker-ce
+      - qemu-user-static
 
 env:
   - DOCKER_CLI_EXPERIMENTAL=enabled
@@ -24,10 +25,10 @@ jobs:
     - stage: environment setup
       before_install: .travis/setup_emulation.sh
       script:
-        - echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
-        - sudo service docker restart
-        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - sudo apt-get install qemu-user-static
+        #- echo '{"experimental":true}' | sudo tee /etc/docker/daemon.json
+        #- sudo service docker restart
+        #- docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        #- sudo apt-get install qemu-user-static
         - chmod +x qemu-arm-static
         ##### actually build things
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-echo "hey there, I am `whoami`"
 
-echo '{"experimental":true}' >> /etc/docker/daemon.json
-service docker restart
+echo '{"experimental":true}' | sudo tee -a /etc/docker/daemon.json
+sudo service docker restart
+
+sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset
+
