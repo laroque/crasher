@@ -1,2 +1,2 @@
 # crasher
-a program which crashes
+a program which crashes... in a container
