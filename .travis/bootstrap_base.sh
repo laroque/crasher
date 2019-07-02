@@ -56,4 +56,5 @@ docker build \
     --build-arg IMAGE_REPO=$IMAGE_REPO \
     --build-arg IMAGE_TAG=$IMAGE_TAG \
     -t emulation_base:local \
+    -f $dot_travis_path/Docker.shim
     $dot_travis_path
