@@ -26,6 +26,7 @@ jobs:
       before_install: .travis/setup_emulation.sh
       script:
         #- chmod +x qemu-arm-static
+        - cp /usr/bin/qemu-amd64-static this_qemu
         - .travis/bootstrap_base.sh -u amd64 -r debian -t 9
         ##### actually build things
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
