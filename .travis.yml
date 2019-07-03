@@ -27,7 +27,7 @@ jobs:
       script:
         - set -e
         #- chmod +x qemu-arm-static
-        - cp /usr/bin/qemu-x86_64-static this_qemu
+        - cp /usr/bin/qemu-x86_64-static .travis/this_qemu
         ##### actually build things
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         ## amd64
