@@ -60,3 +60,11 @@ docker build \
     -f $dot_travis_path/Dockerfile.shim \
     $dot_travis_path
 "
+
+docker build \
+    --build-arg IMAGE_USER=$IMAGE_USER \
+    --build-arg IMAGE_REPO=$IMAGE_REPO \
+    --build-arg IMAGE_TAG=$IMAGE_TAG \
+    -t local/emulation_base:latest \
+    -f $dot_travis_path/Dockerfile.shim \
+    $dot_travis_path
