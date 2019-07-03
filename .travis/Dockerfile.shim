@@ -11,7 +11,3 @@ COPY this_qemu /usr/bin/qemu-static
 RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "cp /bin/sh /bin/sh.real"]
 RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "echo '#!/usr/bin/qemu-static /bin/sh.real\nset -o errexit\ncp /bin/sh.real /bin/sh\n/bin/sh \"$@\"\ncp /usr/bin/sh-shim /bin/sh' > /usr/bin/sh-shim"]
 RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "cp /usr/bin/sh-shim /bin/sh"]
-## shim for bash
-RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "cp /bin/bash /bin/bash.real"]
-RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "echo '#!/usr/bin/qemu-static /bin/bash.real\nset -o errexit\ncp /bin/bash.real /bin/bash\n/bin/sh \"$@\"\ncp /usr/bin/bash-shim /bin/bash' > /usr/bin/bash-shim"]
-RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "cp /usr/bin/bash-shim /bin/bash"]
