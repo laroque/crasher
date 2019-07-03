@@ -1,12 +1,13 @@
-ARG platform=amd64
+ARG img_user=amd64
+ARG img_repo=debian
+ARG img_tag=9
 
 #from arm32v7/debian:9
-#from multiarch/debian-debootstrap:${platform}-stretch as deb-base
-FROM ${platform}/debian:9
+FROM ${img_user}/${img_repo}:${img_tag}
 
-COPY ./qemu-arm-static /usr/bin/qemu-arm-static
+#COPY ./qemu-arm-static /usr/bin/qemu-arm-static
 
-SHELL ["/usr/bin/qemu-arm-static", "/bin/sh", "-c"]
+#SHELL ["/usr/bin/qemu-arm-static", "/bin/sh", "-c"]
 
 #RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "apt-get update && apt-get install -y build-essential gdb"]
 RUN apt-get update && apt-get install -y build-essential gdb
