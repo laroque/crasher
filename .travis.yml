@@ -25,23 +25,23 @@ jobs:
     - stage: environment setup
       before_install: .travis/setup_emulation.sh
       script:
+        ## fail the job quickly if something doesn't work & authenticate dockerhub
         - set -e
-        #- chmod +x qemu-arm-static
-        - cp /usr/bin/qemu-x86_64-static .travis/this_qemu
-        ##### actually build things
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        ##### actually build things
         ## amd64
-        - file this_qemu
+        - cp /usr/bin/qemu-x86_64-static .travis/this_qemu
         - .travis/bootstrap_base.sh -u amd64 -r debian -t 9
         - docker build --build-arg img_user=local --build-arg img_repo=emulation_base --build-arg img_tag=latest -t laroque/crasher:latest-travis-amd64 .
         - docker push laroque/crasher:latest-travis-amd64
         ## arm
         - cp /usr/bin/qemu-arm-static ./this_qemu
-        - docker build --build-arg img_user=arm32v7 -t laroque/crasher:latest-travis-arm .
+        - .travis/bootstrap_base.sh -u arm32v7 -r debian -t 9
+        #- docker build --build-arg img_user=arm32v7 -t laroque/crasher:latest-travis-arm .
+        - docker build --build-arg img_user=local --build-arg img_repo=emulation_base --build-arg img_tag=latest -t laroque/crasher:latest-travis-arm .
         - docker push laroque/crasher:latest-travis-arm
         ##### manifest
         - docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-arm laroque/crasher:latest-travis-amd64
         - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-arm --arch arm
         - docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-amd64 --arch amd64
         - docker manifest push laroque/crasher:latest-travis
-        - set +e
