@@ -23,8 +23,8 @@ branches:
 jobs:
   include:
     ## amd64
-    - stage: build
-      name: "amd64 build"
+    - stage: build images
+      name: amd64
       before_install: .travis/setup_emulation.sh
       script:
         - set -e
@@ -35,8 +35,8 @@ jobs:
         - docker build --build-arg img_user=local --build-arg img_repo=emulation_base --build-arg img_tag=latest -t laroque/crasher:latest-travis-amd64 .
         - docker push laroque/crasher:latest-travis-amd64
     ## arm
-    - stage: build
-      name: "arm32v7 build"
+    - stage: build images
+      name: arm32v7
       before_install: .travis/setup_emulation.sh
       script:
         - set -e
@@ -46,7 +46,7 @@ jobs:
         - docker inspect local/emulation_base:latest | grep -A2 RepoDigest
         - docker build --build-arg img_user=local --build-arg img_repo=emulation_base --build-arg img_tag=latest -t laroque/crasher:latest-travis-arm .
         - docker push laroque/crasher:latest-travis-arm
-    - stage: manifest
+    - stage: assemble manifest
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-arm laroque/crasher:latest-travis-amd64
