@@ -46,7 +46,7 @@ if [[ -z $IMAGE_USER || -z $IMAGE_REPO || -z $IMAGE_TAG ]]; then
     usage
 fi
 
-echo "should build $IMAGE_USER/$IMAGE_REPO:$IMAGE_TAG"
+echo "should build from $IMAGE_USER/$IMAGE_REPO:$IMAGE_TAG -> local/emulation_base:latest"
 
 dot_travis_path=`dirname $0`
 dot_travis_path=`readlink -e $dot_travis_path`
@@ -61,6 +61,7 @@ docker build \
     $dot_travis_path
 "
 
+set -x
 docker build \
     --build-arg IMAGE_USER=$IMAGE_USER \
     --build-arg IMAGE_REPO=$IMAGE_REPO \
