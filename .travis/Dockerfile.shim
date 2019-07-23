@@ -9,8 +9,8 @@ FROM ${IMAGE_USER}/${IMAGE_REPO}:${IMAGE_TAG}
 COPY this_qemu /usr/bin/qemu-static
 
 ## shim for sh
-SHELL ["/usr/bin/qemu-static", "/bin/bash", "-c"]
-#RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "'cp /bin/sh /bin/sh.real'"]
-RUN ["cp", "/bin/sh", "/bin/sh.real"]
+#SHELL ["/usr/bin/qemu-static", "/bin/bash", "-c"]
+RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "cp /bin/sh /bin/sh.real"]
+#RUN ["cp", "/bin/sh", "/bin/sh.real"]
 RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "echo '#!/usr/bin/qemu-static /bin/sh.real\nset -o errexit\ncp /bin/sh.real /bin/sh\n/bin/sh \"$@\"\ncp /usr/bin/sh-shim /bin/sh' > /usr/bin/sh-shim"]
 RUN ["/usr/bin/qemu-static", "/bin/sh", "-c", "cp /usr/bin/sh-shim /bin/sh"]
