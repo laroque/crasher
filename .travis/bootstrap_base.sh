@@ -51,6 +51,7 @@ echo "should build from $IMAGE_USER/$IMAGE_REPO:$IMAGE_TAG -> local/emulation_ba
 dot_travis_path=`dirname $0`
 dot_travis_path=`readlink -e $dot_travis_path`
 
+set -e
 set -x
 docker build \
     --build-arg IMAGE_USER=$IMAGE_USER \
