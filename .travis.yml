@@ -40,6 +40,7 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - cp /usr/bin/qemu-arm-static .travis/this_qemu
         - .travis/bootstrap_base.sh -u arm32v7 -r debian -t 9
+        - docker inspect local/emulation_base:latest
         - docker build --build-arg img_user=local --build-arg img_repo=emulation_base --build-arg img_tag=latest -t laroque/crasher:latest-travis-arm .
         - docker push laroque/crasher:latest-travis-arm
     - stage: manifest
