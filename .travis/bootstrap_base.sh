@@ -57,6 +57,7 @@ docker build \
     --build-arg IMAGE_USER=$IMAGE_USER \
     --build-arg IMAGE_REPO=$IMAGE_REPO \
     --build-arg IMAGE_TAG=$IMAGE_TAG \
+    --build-arg QEMU_PATH=/usr/bin/qemu-arm-static \
     -t local/emulation_base:latest \
     -f $dot_travis_path/Dockerfile.shim \
     $dot_travis_path
