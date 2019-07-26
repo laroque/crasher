@@ -7,9 +7,14 @@ FROM ${img_user}/${img_repo}:${img_tag}
 
 #COPY ./qemu-arm-static /usr/bin/qemu-arm-static
 
-#SHELL ["/usr/bin/qemu-arm-static", "/bin/sh", "-c"]
 
 #RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "apt-get update && apt-get install -y build-essential gdb"]
+
+#SHELL ["/usr/bin/qemu-arm-static", "/bin/sh", "-c"]
+RUN ["pwd"]
+RUN ls
+#RUN ["/usr/bin/qemu-arm-static", "/bin/sh", "-c", "pwd"]
+
 RUN apt-get update && apt-get install -y build-essential gdb
 
 COPY crasher.cc /usr/local/src/crasher.cc

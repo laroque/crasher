@@ -53,13 +53,13 @@ dot_travis_path=`readlink -e $dot_travis_path`
 
 set -e
 set -x
+sed 's#QEMU_TARGET_LOCATION#/usr/bin/qemu-arm-static#' $dot_travis_path/Dockerfile.shim > $dot_travis_path/Dockerfile
 docker build \
     --build-arg IMAGE_USER=$IMAGE_USER \
     --build-arg IMAGE_REPO=$IMAGE_REPO \
     --build-arg IMAGE_TAG=$IMAGE_TAG \
-    --build-arg QEMU_PATH=/usr/bin/qemu-arm-static \
     -t local/emulation_base:latest \
-    -f $dot_travis_path/Dockerfile.shim \
+    -f $dot_travis_path/Dockerfile \
     $dot_travis_path
 
 set +x
