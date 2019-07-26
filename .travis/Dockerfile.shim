@@ -12,8 +12,8 @@ COPY this_qemu QEMU_TARGET_LOCATION
 #SHELL ["QEMU_TARGET_LOCATION", "/bin/sh", "-c"]
 #RUN echo "a foo thing"
 
-RUN ["QEMU_TARGET_LOCATION", "/bin/sh", "-c", "cp /bin/sh /bin/sh.real"]
+#RUN ["QEMU_TARGET_LOCATION", "/bin/sh", "-c", "cp /bin/sh /bin/sh.real"]
 
-RUN ["QEMU_TARGET_LOCATION", "/bin/sh", "-c", "echo '#!/usr/bin/qemu-static /bin/sh.real\nset -o errexit\ncp /bin/sh.real /bin/sh\n/bin/sh \"$@\"\ncp /usr/bin/sh-shim /bin/sh' > /usr/bin/sh-shim"]
-RUN ["QEMU_TARGET_LOCATION", "/bin/sh", "-c", "chmod 777 /usr/bin/sh-shim"]
-RUN ["QEMU_TARGET_LOCATION", "/bin/sh", "-c", "cp /usr/bin/sh-shim /bin/sh"]
+#RUN ["QEMU_TARGET_LOCATION", "/bin/sh", "-c", "echo '#!/usr/bin/qemu-static /bin/sh.real\nset -o errexit\ncp /bin/sh.real /bin/sh\n/bin/sh \"$@\"\ncp /usr/bin/sh-shim /bin/sh' > /usr/bin/sh-shim"]
+#RUN ["QEMU_TARGET_LOCATION", "/bin/sh", "-c", "chmod 777 /usr/bin/sh-shim"]
+#RUN ["QEMU_TARGET_LOCATION", "/bin/sh", "-c", "cp /usr/bin/sh-shim /bin/sh"]

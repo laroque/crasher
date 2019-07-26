@@ -1,6 +1,8 @@
 # Prerequisites
 *.d
 
+*.swp
+
 .travis/this_qemu
 .travis/Dockerfile
 
