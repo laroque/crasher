@@ -53,16 +53,17 @@ if [[ $architectures == "" ]]; then
 fi
 
 # build and populate the manifest
+set -o
 images_list=""
 for a in $architectures
 do
     images_list="$images_list ${manifest_name}-${a}"
 done
-echo "images list is: $images_list"
-echo -e "should run:\n docker manifest create $manifest_name $images_list"
+#echo "images list is: $images_list"
+docker manifest create $manifest_name $images_list
 for a in $architectures
 do
-    echo -e "should run:\n docker manifest annotate $manifest_name ${manifest_name}-${a} --arch $a"
+    docker manifest annotate $manifest_name ${manifest_name}-${a} --arch $a
 done
-echo -e "should run:\n docker manifest push $manifest_name"
-echo "done"
+should run:\n docker manifest push $manifest_name
+set +o
