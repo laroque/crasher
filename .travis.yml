@@ -48,7 +48,3 @@ jobs:
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - .travis/build_manifest.sh -a arm -a amd64 -n laroque/crasher:latest-travis
-        #- docker manifest create laroque/crasher:latest-travis laroque/crasher:latest-travis-arm laroque/crasher:latest-travis-amd64
-        #- docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-arm --arch arm
-        #- docker manifest annotate laroque/crasher:latest-travis laroque/crasher:latest-travis-amd64 --arch amd64
-        #- docker manifest push laroque/crasher:latest-travis
