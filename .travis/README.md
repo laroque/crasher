@@ -3,8 +3,9 @@ This directory is a sandbox for testing the travs boilerplate needed to get auto
 ## Add this to another repo
 Making notes while deploying this system to another repo:
 
-1. This directory (.travis in the laroque/crasher repo) should be copied into the target repo.
-   If a directory with the same name already exists, either merge the contents or you can rename this one and update the paths described in the `.travs.yml` file (the contained scripts should all we able to cope with being moved).
+ 1. This directory (.travis in the laroque/crasher repo) should be copied into the target repo.
+    If a directory with the same name already exists, either merge the contents or you can rename this one and update the paths described in the `.travs.yml` file (the contained scripts should all we able to cope with being moved).
+ 2. Review the `.travs.yml` file from this repository and merger with any existing travis file if it already exists.
 
 ## Notes/gotchas/assumptions
 
