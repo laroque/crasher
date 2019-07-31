@@ -4,7 +4,8 @@ usage() {
     echo -e "Usage: $0 \n"\
          "    -u (user portion of image specification)\n"\
          "    -r (repo portion of image specification)\n"\
-         "    -t (tag portion of image specification)"
+         "    -t (tag portion of image specification)\n" \
+         "    -a (desired architecture, one of [arm7, amd64])"
     exit 2
 }
 
@@ -13,7 +14,7 @@ echo "parsing bootstrap base image options"
 if [[ $1 == "" ]]; then
   usage
 fi
-while getopts u:r:t: option ; do
+while getopts u:r:t:a: option ; do
   case $option in
     u) # store user
       if [[ $OPTARG == "" ]]; then
@@ -36,12 +37,24 @@ while getopts u:r:t: option ; do
       fi
       IMAGE_TAG="$OPTARG"
       ;;
+    a) # store target architecture
+      if [[ $OPTARG == "" ]]; then
+        echo "architecture flag requires value"
+        exit 2
+      fi
+      if [[ "amd64 arm7" =~ (^|[[:space:]])"$OPTARG"($|[[:space:]]) ]]; then
+        TARGET_ARCH="$OPTARG"
+      else
+        echo "arch '${OPTARG}' not recognized"
+        usage
+      fi
+      ;;
     *) # print usage
       usage
       ;;
   esac
 done
-if [[ -z $IMAGE_USER || -z $IMAGE_REPO || -z $IMAGE_TAG ]]; then
+if [[ -z $IMAGE_USER || -z $IMAGE_REPO || -z $IMAGE_TAG || -z $TARGET_ARCH ]]; then
     echo "all arguments are required"
     usage
 fi
