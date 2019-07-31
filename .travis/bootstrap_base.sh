@@ -1,5 +1,11 @@
 #!/bin/bash
 
+## conventional notes
+## - true comments that are not in-line start with double ## (commented out lines are single)
+## - local variables are lower_snake_case (leaves UPPER_SNAKE for environment stuff)
+## - echo statements that are just progress notes start with "-- "
+
+
 usage() {
     echo -e "Usage: $0 \n"\
          "    -u (user portion of image specification)\n"\
@@ -9,7 +15,7 @@ usage() {
     exit 2
 }
 
-echo "parsing bootstrap base image options"
+echo "-- parsing bootstrap base image options"
 
 if [[ $1 == "" ]]; then
   usage
@@ -63,15 +69,15 @@ original_qemu_path=""
 case $target_arch in
     amd64)
         original_qemu_path="/usr/bin/qemu-x86_64-static"
-        echo "set qemu vars for amd64"
+        echo "-- set qemu vars for amd64"
         ;;
     arm7)
         original_qemu_path="/usr/bin/qemu-arm-static"
-        echo "set qemu vars for arm7"
+        echo "-- set qemu vars for arm7"
         ;;
 esac
 
-echo "should build from $image_user/$image_repo:$image_tag -> local/emulation_base:latest"
+echo "-- should build from $image_user/$image_repo:$image_tag -> local/emulation_base:latest"
 
 dot_travis_path=`dirname $0`
 dot_travis_path=`readlink -e $dot_travis_path`
