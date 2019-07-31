@@ -85,7 +85,7 @@ dot_travis_path=`readlink -e $dot_travis_path`
 # bootstrap a custom base image with emulation
 set -x
 cp $original_qemu_path ${dot_travis_path}/this_qemu
-sed 's#QEMU_TARGET_LOCATION#${original_qemu_path}#' $dot_travis_path/Dockerfile.shim > $dot_travis_path/Dockerfile
+sed "s#QEMU_TARGET_LOCATION#${original_qemu_path}#" $dot_travis_path/Dockerfile.shim > $dot_travis_path/Dockerfile
 docker build \
     --build-arg image_user=$image_user \
     --build-arg image_repo=$image_repo \
