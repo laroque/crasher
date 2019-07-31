@@ -8,9 +8,10 @@
 
 usage() {
     echo -e "Usage: $0 \n"\
-         "    -u (user portion of image specification)\n"\
-         "    -r (repo portion of image specification)\n"\
-         "    -t (tag portion of image specification)\n" \
+         "    -u (user portion of emulation base image specification)\n"\
+         "    -r (repo portion of emulation base image specification)\n"\
+         "    -t (tag portion of emulation base image specification)\n" \
+         "    -i (user, repo, and base-tag of output image (arch is automatically appended)\n" \
          "    -a (desired architecture, one of [arm7, amd64])"
     exit 2
 }
@@ -20,7 +21,7 @@ echo "-- parsing bootstrap base image options"
 if [[ $1 == "" ]]; then
   usage
 fi
-while getopts u:r:t:a: option ; do
+while getopts u:r:t:i:a: option ; do
   case $option in
     u) # store user
       if [[ $OPTARG == "" ]]; then
@@ -42,6 +43,13 @@ while getopts u:r:t:a: option ; do
         exit 2
       fi
       image_tag="$OPTARG"
+      ;;
+    i) # store output repo info
+      if [[ $OPTARG == "" ]]; then
+        echo "output image flag requires value"
+        exit 2
+      fi
+      output_image="$OPTARG"
       ;;
     a) # store target architecture
       if [[ $OPTARG == "" ]]; then
@@ -69,21 +77,21 @@ original_qemu_path=""
 case $target_arch in
     amd64)
         original_qemu_path="/usr/bin/qemu-x86_64-static"
+        architecture_img_suffix="amd64"
         echo "-- set qemu vars for amd64"
         ;;
     arm7)
         original_qemu_path="/usr/bin/qemu-arm-static"
+        architecture_img_suffix="arm"
         echo "-- set qemu vars for arm7"
         ;;
 esac
 
-echo "-- should build from $image_user/$image_repo:$image_tag -> local/emulation_base:latest"
-
 dot_travis_path=`dirname $0`
 dot_travis_path=`readlink -e $dot_travis_path`
 
-# bootstrap a custom base image with emulation
 set -x
+# bootstrap a custom base image with emulation
 cp $original_qemu_path ${dot_travis_path}/this_qemu
 sed "s#QEMU_TARGET_LOCATION#${original_qemu_path}#" $dot_travis_path/Dockerfile.shim > $dot_travis_path/Dockerfile
 docker build \
@@ -95,4 +103,11 @@ docker build \
     $dot_travis_path
 set +x
 
-#
+# build the arch-specific image on top of it
+docker build \
+    --build-arg img_user=local \
+    --build-arg img_repo=emulation_base \
+    --build-arg img_tag=latest \
+    -t ${output_image}-${architecture_img_suffix}
+    .
+docker push ${output_image}-${architecture_img_suffix}
