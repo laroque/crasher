@@ -108,7 +108,7 @@ docker build \
     --build-arg img_user=local \
     --build-arg img_repo=emulation_base \
     --build-arg img_tag=latest \
-    -t ${output_image}-${architecture_img_suffix}
+    -t ${output_image}-${architecture_img_suffix} \
     .
 docker push ${output_image}-${architecture_img_suffix}
 
