@@ -21,21 +21,21 @@ while getopts u:r:t:a: option ; do
         echo "user flag requires value"
         exit 2
       fi
-      IMAGE_USER="$OPTARG"
+      image_user="$OPTARG"
       ;;
     r) # store repo
       if [[ $OPTARG == "" ]]; then
         echo "repo flag requires value"
         exit 2
       fi
-      IMAGE_REPO="$OPTARG"
+      image_repo="$OPTARG"
       ;;
     t) # store tag
       if [[ $OPTARG == "" ]]; then
         echo "tag flag requires value"
         exit 2
       fi
-      IMAGE_TAG="$OPTARG"
+      image_tag="$OPTARG"
       ;;
     a) # store target architecture
       if [[ $OPTARG == "" ]]; then
@@ -43,7 +43,7 @@ while getopts u:r:t:a: option ; do
         exit 2
       fi
       if [[ "amd64 arm7" =~ (^|[[:space:]])"$OPTARG"($|[[:space:]]) ]]; then
-        TARGET_ARCH="$OPTARG"
+        target_arch="$OPTARG"
       else
         echo "arch '${OPTARG}' not recognized"
         usage
@@ -54,25 +54,39 @@ while getopts u:r:t:a: option ; do
       ;;
   esac
 done
-if [[ -z $IMAGE_USER || -z $IMAGE_REPO || -z $IMAGE_TAG || -z $TARGET_ARCH ]]; then
+if [[ -z $image_user || -z $image_repo || -z $image_tag || -z $target_arch ]]; then
     echo "all arguments are required"
     usage
 fi
 
-echo "should build from $IMAGE_USER/$IMAGE_REPO:$IMAGE_TAG -> local/emulation_base:latest"
+original_qemu_path=""
+case $target_arch in
+    amd64)
+        original_qemu_path="/usr/bin/qemu-x86_64-static"
+        echo "set qemu vars for amd64"
+        ;;
+    arm7)
+        original_qemu_path="/usr/bin/qemu-arm-static"
+        echo "set qemu vars for arm7"
+        ;;
+esac
+
+echo "should build from $image_user/$image_repo:$image_tag -> local/emulation_base:latest"
 
 dot_travis_path=`dirname $0`
 dot_travis_path=`readlink -e $dot_travis_path`
 
-set -e
+# bootstrap a custom base image with emulation
 set -x
-sed 's#QEMU_TARGET_LOCATION#/usr/bin/qemu-arm-static#' $dot_travis_path/Dockerfile.shim > $dot_travis_path/Dockerfile
+cp $original_qemu_path ${dot_travis_path}/this_qemu
+sed 's#QEMU_TARGET_LOCATION#${original_qemu_path}#' $dot_travis_path/Dockerfile.shim > $dot_travis_path/Dockerfile
 docker build \
-    --build-arg IMAGE_USER=$IMAGE_USER \
-    --build-arg IMAGE_REPO=$IMAGE_REPO \
-    --build-arg IMAGE_TAG=$IMAGE_TAG \
+    --build-arg image_user=$image_user \
+    --build-arg image_repo=$image_repo \
+    --build-arg image_tag=$image_tag \
     -t local/emulation_base:latest \
     -f $dot_travis_path/Dockerfile \
     $dot_travis_path
-
 set +x
+
+#
