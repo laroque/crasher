@@ -68,7 +68,7 @@ while getopts u:r:t:i:a: option ; do
       ;;
   esac
 done
-if [[ -z $image_user || -z $image_repo || -z $image_tag || -z $target_arch ]]; then
+if [[ -z $image_user || -z $image_repo || -z $image_tag || -z $target_arch || -z $output_image ]]; then
     echo "all arguments are required"
     usage
 fi
@@ -91,6 +91,7 @@ dot_travis_path=`dirname $0`
 dot_travis_path=`readlink -e $dot_travis_path`
 
 set -x
+
 # bootstrap a custom base image with emulation
 cp $original_qemu_path ${dot_travis_path}/this_qemu
 sed "s#QEMU_TARGET_LOCATION#${original_qemu_path}#" $dot_travis_path/Dockerfile.shim > $dot_travis_path/Dockerfile
@@ -101,7 +102,6 @@ docker build \
     -t local/emulation_base:latest \
     -f $dot_travis_path/Dockerfile \
     $dot_travis_path
-set +x
 
 # build the arch-specific image on top of it
 docker build \
@@ -111,3 +111,5 @@ docker build \
     -t ${output_image}-${architecture_img_suffix}
     .
 docker push ${output_image}-${architecture_img_suffix}
+
+set +x
