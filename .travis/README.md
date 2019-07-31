@@ -25,7 +25,7 @@ The bootstrap script will then build a local image with the required qemu execut
 
 In order for architecture emulation to work as expected and a project to maintain a single Dockerfile, there are some extra notes:
 
-1. Any build stage which includes a `RUN` directive must use `FROM ${img_user}/${img_repo}:${img_tag}` (these `--build-arg` values are passed in the bootstrap script).
-2. If the build is in a single stage, the image produced will include the qemu executable, as well as the layers for the produced base image used for emulation (this may be fine, depending on the use case).
-3. An image build stage which does not include any `RUN` directives may use a different base image (it will need to be compatible with x86_64 while building on travis.
-4. If you want to minimize the image size and/or keep the qemu executable out, use a multi-stage build in your Dockerfile. The final stage can be `FROM` whatever base image you would normally use and copy the build artifacts from earlier stages (which are compatible with the emulated architecture). **NOTE:** this hasn't been tested here and the bootstrap script will need to be modified to pass both the local base image and the true (architecture-specific) base image to the Dockerfile.
+ 1. Any build stage which includes a `RUN` directive must use `FROM ${img_user}/${img_repo}:${img_tag}` (these `--build-arg` values are passed in the bootstrap script).
+ 2. If the build is in a single stage, the image produced will include the qemu executable, as well as the layers for the produced base image used for emulation (this may be fine, depending on the use case).
+ 3. An image build stage which does not include any `RUN` directives may use a different base image (it will need to be compatible with x86_64 while building on travis.
+ 4. If you want to minimize the image size and/or keep the qemu executable out, use a multi-stage build in your Dockerfile. The final stage can be `FROM` whatever base image you would normally use and copy the build artifacts from earlier stages (which are compatible with the emulated architecture). **NOTE:** this hasn't been tested here and the bootstrap script will need to be modified to pass both the local base image and the true (architecture-specific) base image to the Dockerfile.
