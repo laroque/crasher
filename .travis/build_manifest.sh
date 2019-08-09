@@ -53,7 +53,7 @@ if [[ $architectures == "" ]]; then
 fi
 
 # build and populate the manifest
-set -o
+set -ex
 images_list=""
 for a in $architectures
 do
@@ -66,4 +66,4 @@ do
     docker manifest annotate $manifest_name ${manifest_name}-${a} --arch $a
 done
 should run:\n docker manifest push $manifest_name
-set +o
+set +ex
