@@ -39,7 +39,7 @@ jobs:
         - .travis/bootstrap_image.sh -u arm32v7 -r debian -t 9 -a arm7 -i laroque/crasher:`echo ${TRAVIS_BRANCH} | tr / _`
     ## aarch64
     - stage: build images
-      name: aarch64
+      name: arm64v8
       before_install: .travis/setup_emulation.sh
       script:
         - set -e
@@ -49,4 +49,4 @@ jobs:
     - stage: assemble manifest
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - .travis/build_manifest.sh -a arm -a amd64 -a arm8 -n laroque/crasher:latest-travis
+        - .travis/build_manifest.sh -a arm -a amd64 -a arm64v8 -n laroque/crasher:latest-travis
