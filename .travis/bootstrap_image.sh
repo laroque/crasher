@@ -56,7 +56,7 @@ while getopts u:r:t:i:a: option ; do
         echo "architecture flag requires value"
         exit 2
       fi
-      if [[ "amd64 arm7" =~ (^|[[:space:]])"$OPTARG"($|[[:space:]]) ]]; then
+      if [[ "amd64 arm7 arm8" =~ (^|[[:space:]])"$OPTARG"($|[[:space:]]) ]]; then
         target_arch="$OPTARG"
       else
         echo "arch '${OPTARG}' not recognized"
@@ -85,9 +85,9 @@ case $target_arch in
         architecture_img_suffix="arm"
         echo "-- set qemu vars for arm7"
         ;;
-    aarch)
+    arm8)
         original_qemu_path="/usr/bin/qemu-aarch64-static"
-        architecture_img_suffix="aarch64"
+        architecture_img_suffix="arm64v8"
         echo "-- set aarch64 vars for arm64v8"
         ;;
 esac

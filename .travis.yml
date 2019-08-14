@@ -44,9 +44,9 @@ jobs:
       script:
         - set -e
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - .travis/bootstrap_image.sh -u aarch64 -r debian -t 9 -a arm7 -i laroque/crasher:`echo ${TRAVIS_BRANCH} | tr / _`
+        - .travis/bootstrap_image.sh -u arm64v8 -r debian -t 9 -a arm8 -i laroque/crasher:`echo ${TRAVIS_BRANCH} | tr / _`
     ## assmble the manifest
     - stage: assemble manifest
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - .travis/build_manifest.sh -a arm -a amd64 -n laroque/crasher:latest-travis
+        - .travis/build_manifest.sh -a arm -a amd64 -a arm8 -n laroque/crasher:latest-travis
