@@ -49,4 +49,4 @@ jobs:
     - stage: assemble manifest
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - .travis/build_manifest.sh -a arm -a amd64 -a arm64v8 -n laroque/crasher:`echo ${TRAVIS_BRANCH | tr / _`
+        - .travis/build_manifest.sh -a arm -a amd64 -a arm64v8 -n laroque/crasher:`echo ${TRAVIS_BRANCH} | tr / _`
