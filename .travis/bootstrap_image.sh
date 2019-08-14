@@ -87,8 +87,8 @@ case $target_arch in
         ;;
     arm8)
         original_qemu_path="/usr/bin/qemu-aarch64-static"
-        architecture_img_suffix="arm64v8"
-        echo "-- set aarch64 vars for arm64v8"
+        architecture_img_suffix="arm64"
+        echo "-- set qemu vars for arm64-v8"
         ;;
 esac
 
