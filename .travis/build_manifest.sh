@@ -65,5 +65,5 @@ for a in $architectures
 do
     docker manifest annotate $manifest_name ${manifest_name}-${a} --arch $a
 done
-should run:\n docker manifest push $manifest_name
+docker manifest push $manifest_name
 set +ex
