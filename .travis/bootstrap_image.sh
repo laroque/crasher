@@ -12,7 +12,7 @@ usage() {
          "    -r (repo portion of emulation base image specification)\n"\
          "    -t (tag portion of emulation base image specification)\n" \
          "    -i (user, repo, and base-tag of output image (arch is automatically appended)\n" \
-         "    -a (desired architecture, one of [arm7, amd64])"
+         "    -a (desired architecture, one of [arm7, arm8, amd64])"
     exit 2
 }
 
