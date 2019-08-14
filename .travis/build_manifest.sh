@@ -52,6 +52,8 @@ if [[ $architectures == "" ]]; then
   usage
 fi
 
+echo "final manifest will be ${manifest_name}"
+
 # build and populate the manifest
 set -ex
 images_list=""
