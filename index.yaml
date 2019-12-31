@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  crasher:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-12-30T21:16:57.204414-08:00"
+    description: A Helm chart the crasher program
+    digest: d70a793d6a66effd69c1244daeb0f69fe8ddd090d8f40332205d38d69458bbd3
+    icon: https://images.app.goo.gl/MZdwAozvPYZkgkpX6`
+    name: crasher
+    urls:
+    - https://laroque.github.io/crasher/crasher-0.1.0.tgz
+    version: 0.1.0
+generated: "2019-12-30T21:16:57.203785-08:00"
