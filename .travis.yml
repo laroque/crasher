@@ -1,6 +1,6 @@
 language: cpp
 
-dist: xenial
+dist: bionic
 
 services:
   - docker
@@ -8,7 +8,6 @@ services:
 addons:
   apt:
     packages:
-      - docker-ce
       - qemu-user-static
 
 env:
@@ -16,8 +15,11 @@ env:
 
 branches:
   only:
+    # build the master branch and tags of the form v#.#.#<qualifier>
     - master
     - /^v\d+\.\d+\.\d+(-S*)?$/
+    # build branches ending in /build
+    - /.*\/(?i:build)$/
 
 jobs:
   include:
