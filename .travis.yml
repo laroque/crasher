@@ -16,8 +16,11 @@ env:
 
 branches:
   only:
+    # build the master branch and tags of the form v#.#.#<qualifier>
     - master
     - /^v\d+\.\d+\.\d+(-S*)?$/
+    # build branches ending in /build
+    - /.*\/(?i:build)$/
 
 jobs:
   include:
