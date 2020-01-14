@@ -45,4 +45,4 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: demochart-configmap
+            name: {{ .Values.crasherCMName }}
